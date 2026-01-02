@@ -1,0 +1,70 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --color-mint-50:  #46CE83; /* primary color */
+  --color-mint-70: #89DC7E;
+  --color-mint-75:  #BCFF7D;
+  --color-mint-80: #D8FF99;
+
+  --color-white-90: #E4E4E7;
+  --color-white-95: #F1F1F3;   /* secondary color */
+  --color-white-97: #F7F7F8;  /* background color */
+  --color-white-99: #FCFCFD;  /* input block color */
+
+  --color-grey-10:  #1A1A1A;
+  --color-grey-15:  #262626;  /* text color */
+  --color-grey-20:  #333333;
+  --color-grey-30:  #4D4D4D;  /* paragraph color */
+  --color-grey-40:  #666666;   /* placeholder color */
+  --color-grey-50:  #808080;
+  --color-grey-60:  #999999;
+  --color-grey-70:  #B3B3B3;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+ 
+}
