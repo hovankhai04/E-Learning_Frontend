@@ -32,7 +32,7 @@ export const Button = React.forwardRef<
 
   const variants: Record<ButtonVariant, string> = {
     primary:
-      "bg-mint-50 text-white hover:bg-mint-70 focus:ring-mint-50",
+      "bg-mint-50 text-white border border-mint-50 hover:bg-mint-70 focus:ring-mint-50",
     secondary:
       "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400",
     outline:

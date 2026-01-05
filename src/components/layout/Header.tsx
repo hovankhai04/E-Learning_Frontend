@@ -3,12 +3,16 @@ import Logo from '../../../public/assets/Logo.svg';
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
+import { AvatarMenuDropdown } from "../ui/AvatarMenuDropdown";
 
-export const Header= () =>{
+type HeaderProps = {
+  isLoggedIn: boolean;
+};
+
+export const Header = ({ isLoggedIn }: HeaderProps) => {
     const [isOnMobile, setIsOnMobile] = useState(false);
     const handleMenuClick = () => {
         setIsOnMobile(!isOnMobile);
-        // console.log(isOnMobile);
     }
     return (
         <>
@@ -30,10 +34,19 @@ export const Header= () =>{
                 </div>
             
                 <div className="action flex flex-row items-center">
-                    <Button variant="primary">Login</Button>
-                    <Button variant="outline" className="ml-4">Sign Up</Button>
-                    <Button variant="icon" className="transition-all duration-300 ease-in-out opacity-100 md:hidden" onClick={handleMenuClick}> {isOnMobile ? <IoCloseSharp className="w-7 h-7 "/> : <RiMenu3Fill className="w-7 h-7"/>}</Button>
+                    {
+                        isLoggedIn ? (
+                            <AvatarMenuDropdown/>
+                        ) : (
+                            <>
+                                <Button variant="primary">Login</Button>
+                                <Button variant="outline" className="ml-4">Sign Up</Button>
+                            </>
+                        )       
+                    }
+                    <Button variant="icon" className="transition-all duration-300 ease-in-out opacity-100 sm:hidden" onClick={handleMenuClick}> {isOnMobile ? <IoCloseSharp className="w-7 h-7 "/> : <RiMenu3Fill className="w-7 h-7"/>}</Button>
                 </div>
+            
             </div>
             
         </header>
@@ -42,7 +55,7 @@ export const Header= () =>{
                 mobile-menu
                 bg-white shadow-md px-4
                 overflow-hidden
-                md:hidden
+                sm:hidden
                 transition-all duration-300 ease-in-out 
                 ${isOnMobile ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}
               `}
