@@ -110,7 +110,6 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
                 </a>
               ))}
             </div>
-
         </>
     )
 }
