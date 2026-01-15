@@ -30,7 +30,7 @@ export const ProgressChart = () => {
           <div key={data.day} className="flex flex-col items-center flex-1">
             <div className="flex items-end justify-center h-56 w-full mb-3">
               <div
-                className="w-full bg-gradient-to-t from-mint-50 to-mint-70 rounded-t-lg transition-all hover:from-mint-70 hover:to-mint-75 cursor-pointer group relative"
+                className="w-full bg-linear-to-t from-mint-50 to-mint-70 rounded-t-lg transition-all hover:from-mint-70 hover:to-mint-75 cursor-pointer group relative"
                 style={{
                   height: `${(data.minutes / MAX_MINUTES) * 100}%`,
                 }}

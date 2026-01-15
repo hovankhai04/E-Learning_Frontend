@@ -103,13 +103,3 @@
   transition: color 0.2s ease;
 }
 
-/* Focus states for accessibility */
-.user-profile-page button:focus {
-  /* outline: 2px solid #46ce83; */
-  outline-offset: 2px;
-}
-
-.user-profile-page button:focus-visible {
-  outline: 2px solid #46ce83;
-  outline-offset: 2px;
-}

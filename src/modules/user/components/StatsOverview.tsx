@@ -32,6 +32,11 @@ export const StatsOverview = () => {
             <div
               className="h-full bg-mint-50"
               style={{ width: `${stat.progress}%` }}
+              role="progressbar"
+              aria-valuenow={stat.progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`${stat.label} progress`}
             ></div>
           </div>
         </div>

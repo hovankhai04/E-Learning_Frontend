@@ -58,7 +58,7 @@ export const ProficiencyCard = () => {
             </div>
             <div className="w-full h-2 bg-white-95 rounded-full overflow-hidden">
               <div
-                className={`h-full bg-gradient-to-r ${prof.color} to-mint-50`}
+                className={`h-full bg-linear-to-r ${prof.color} to-mint-50`}
                 style={{ width: `${prof.level}%` }}
               ></div>
             </div>

@@ -89,7 +89,7 @@ export const LessonsByTopic = () => {
             </div>
             <div className="w-full h-3 bg-white-95 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-mint-50 to-mint-70 rounded-full"
+                className="h-full bg-linear-to-r from-mint-50 to-mint-70 rounded-full"
                 style={{ width: `${topic.percentage}%` }}
               ></div>
             </div>
@@ -99,7 +99,7 @@ export const LessonsByTopic = () => {
             <p className="text-sm text-gray-40 mb-3">
               <span className="font-semibold text-gray-15">Next Lesson:</span> {topic.nextLesson}
             </p>
-            <button className="w-full px-4 py-2 bg-mint-50 text-white rounded-lg font-semibold hover:bg-mint-70 transition-colors">
+            <button className="w-full px-4 py-2 bg-mint-50 text-white rounded-lg font-semibold hover:bg-mint-70 transition-colors" aria-label={`Continue learning ${topic.name}`}>
               Continue Learning
             </button>
           </div>

@@ -38,9 +38,14 @@ export const UserProfilePage = () => {
         </div>
 
         {/* Tab Navigation */}
-        <div className="mb-6 flex gap-4 border-b border-white-90">
+        <div className="mb-6 flex gap-4 border-b border-white-90" role="tablist" aria-label="Learning tabs">
           <button
             onClick={() => setActiveTab('overview')}
+            id="tab-overview"
+            role="tab"
+            aria-selected={activeTab === 'overview'}
+            aria-controls="panel-overview"
+            tabIndex={activeTab === 'overview' ? 0 : -1}
             className={`pb-3 px-4 font-semibold transition-colors ${
               activeTab === 'overview'
                 ? 'text-mint-50 border-b-2 border-mint-50'
@@ -51,6 +56,11 @@ export const UserProfilePage = () => {
           </button>
           <button
             onClick={() => setActiveTab('lessons')}
+            id="tab-lessons"
+            role="tab"
+            aria-selected={activeTab === 'lessons'}
+            aria-controls="panel-lessons"
+            tabIndex={activeTab === 'lessons' ? 0 : -1}
             className={`pb-3 px-4 font-semibold transition-colors ${
               activeTab === 'lessons'
                 ? 'text-mint-50 border-b-2 border-mint-50'
@@ -61,6 +71,11 @@ export const UserProfilePage = () => {
           </button>
           <button
             onClick={() => setActiveTab('history')}
+            id="tab-history"
+            role="tab"
+            aria-selected={activeTab === 'history'}
+            aria-controls="panel-history"
+            tabIndex={activeTab === 'history' ? 0 : -1}
             className={`pb-3 px-4 font-semibold transition-colors ${
               activeTab === 'history'
                 ? 'text-mint-50 border-b-2 border-mint-50'
@@ -74,16 +89,39 @@ export const UserProfilePage = () => {
         {/* Tab Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            {activeTab === 'overview' && (
-              <>
-                <ProgressChart />
-                <div className="mt-6">
-                  <WordsLearned />
-                </div>
-              </>
-            )}
-            {activeTab === 'lessons' && <LessonsByTopic />}
-            {activeTab === 'history' && <LearningHistory />}
+            <div
+              id="panel-overview"
+              role="tabpanel"
+              aria-labelledby="tab-overview"
+              hidden={activeTab !== 'overview'}
+            >
+              {activeTab === 'overview' && (
+                <>
+                  <ProgressChart />
+                  <div className="mt-6">
+                    <WordsLearned />
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div
+              id="panel-lessons"
+              role="tabpanel"
+              aria-labelledby="tab-lessons"
+              hidden={activeTab !== 'lessons'}
+            >
+              {activeTab === 'lessons' && <LessonsByTopic />}
+            </div>
+
+            <div
+              id="panel-history"
+              role="tabpanel"
+              aria-labelledby="tab-history"
+              hidden={activeTab !== 'history'}
+            >
+              {activeTab === 'history' && <LearningHistory />}
+            </div>
           </div>
 
           {/* Sidebar */}
