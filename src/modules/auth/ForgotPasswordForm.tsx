@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { writeResetFlowSession } from "@/modules/auth/resetFlowSession";
-import { authService } from "@/modules/auth/auth.service";
+import { writeResetFlowSession } from "@/services/auth/resetFlowSession";
+import { authService } from "@/services/auth/auth.service";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import {forgotPasswordSchema, type ForgotPasswordForm } from "@/validations/auth.schema";
+import { forgotPasswordSchema, type ForgotPasswordForm } from "@/validations/auth.schema";
 
 
 

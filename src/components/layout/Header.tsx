@@ -19,7 +19,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { href: "/", label: "Home", ariaLabel: "Home page" },
-  { href: "/courses", label: "Courses", ariaLabel: "Browse available courses" },
+  { href: "/topics", label: "Courses", ariaLabel: "Browse available courses" },
   { href: "/about", label: "About", ariaLabel: "About our platform" },
   { href: "/contact", label: "Contact", ariaLabel: "Contact us" },
 ];

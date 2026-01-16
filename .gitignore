@@ -30,3 +30,4 @@ dist-ssr
 src/app/(auth)/grammar/
 src/app/(auth)/topics/
 src/modules/topics/
+src/modules/learning/

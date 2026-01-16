@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { useAuth } from "@/modules/auth/useAuth";
+import { useAuth } from "@/services/auth/useAuth";
 
 const AppLayout = () => {
   const { isAuthenticated } = useAuth();

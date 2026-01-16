@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { AuthProvider } from "@/modules/auth/useAuth";
+import { AuthProvider } from "@/services/auth/useAuth";
 
 const AppProviders = ({ children }: PropsWithChildren) => {
 	return <AuthProvider>{children}</AuthProvider>;

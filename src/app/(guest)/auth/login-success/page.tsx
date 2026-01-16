@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { authService } from "@/modules/auth/auth.service";
-import { useAuth } from "@/modules/auth/useAuth";
+import { authService } from "@/services/auth/auth.service";
+import { useAuth } from "@/services/auth/useAuth";
 import { Button } from "@/components/ui/Button";
 
 const GoogleLoginSuccessPage = () => {

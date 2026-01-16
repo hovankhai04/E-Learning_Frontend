@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useAuth } from '@/modules/auth/useAuth';
+import { useAuth } from '@/services/auth/useAuth';
 import { Input, PasswordInput } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { registerSchema, type RegisterForm } from '@/validations/auth.schema';

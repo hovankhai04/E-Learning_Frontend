@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "@/modules/auth/useAuth";
+import { useAuth } from "@/services/auth/useAuth";
 
 type RequireAuthProps = PropsWithChildren<{
   fallback?: ReactNode;

@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { authService } from "@/modules/auth/auth.service";
-import { clearResetFlowSession, readResetFlowSession } from "@/modules/auth/resetFlowSession";
-import type { ResetFlowSession } from "@/modules/auth/resetFlowSession";
+import { authService } from "@/services/auth/auth.service";
+import { clearResetFlowSession, readResetFlowSession } from "@/services/auth/resetFlowSession";
+import type { ResetFlowSession } from "@/services/auth/resetFlowSession";
 import { PasswordInput } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { resetPasswordSchema, type ResetPasswordForm } from "@/validations/auth.schema";
@@ -20,7 +20,7 @@ const maskEmail = (value: string) => {
   return `${visible}***${tail}@${domain}`;
 };
 
-const ResetPasswordForm = () => {
+const ResetPassword = () => {
   const {
     register,
     handleSubmit,
@@ -153,4 +153,4 @@ const ResetPasswordForm = () => {
   );
 };
 
-export default ResetPasswordForm;
+export default ResetPassword;
