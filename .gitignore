@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
+.env
+.env.*
+
+src/app/(auth)/grammar/
+src/app/(auth)/topics/
+src/modules/topics/
+src/modules/learning/
