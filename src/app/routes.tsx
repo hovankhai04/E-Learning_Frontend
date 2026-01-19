@@ -12,6 +12,8 @@ import DashboardPage from "@/app/dashboard/page";
 import RequireAuth from "@/modules/auth/RequireAuth";
 import AppLayout from "./AppLayout";
 import AuthLayout from "./AuthLayout";
+import TopicListPage from "@/modules/learning/vocab/pages/TopicListPage";
+import StudyPage from "@/modules/learning/vocab/pages/StudyPage";
 
 const HomeRedirect = () => {
   const { isAuthenticated } = useAuth();
@@ -46,6 +48,22 @@ const AppRoutes = () => {
             element={
               <RequireAuth>
                 {/* <TopicBrowserPage /> */}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/vocab"
+            element={
+              <RequireAuth>
+                <TopicListPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/vocab/:topic"
+            element={
+              <RequireAuth>
+                <StudyPage />
               </RequireAuth>
             }
           />
