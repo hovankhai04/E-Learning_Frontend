@@ -3,9 +3,10 @@ import Logo from '../../../public/assets/Logo.svg';
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Location } from "react-router-dom";
 import { AvatarMenuDropdown } from "../ui/AvatarMenuDropdown";
+import { useAuth } from "@/services/auth/useAuth";
 
 type HeaderProps = {
   isLoggedIn: boolean;
@@ -27,6 +28,8 @@ const navLinks: NavLink[] = [
 export const Header = ({ isLoggedIn }: HeaderProps) => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location: Location = useLocation();
+    const navigate = useNavigate();
+    const { user, logout } = useAuth();
 
     const isLinkActive = (href: string): boolean => {
       return location.pathname === href;
@@ -69,7 +72,15 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
                 <div className="action flex flex-row items-center">
                     {
                         isLoggedIn ? (
-                            <AvatarMenuDropdown/>
+                            <AvatarMenuDropdown
+                                displayName={user?.username ?? "User"}
+                                avatarUrl={user?.avatarUrl ?? null}
+                                onEditProfile={() => navigate("/profile")}
+                                onLogout={async () => {
+                                    await logout();
+                                    navigate("/login", { replace: true });
+                                }}
+                            />
                         ) : (
                             <>
                                 <Button variant="primary">Login</Button>

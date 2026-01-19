@@ -7,8 +7,9 @@ import ResetPasswordPage from "@/app/(guest)/auth/reset-password/page";
 import VerifyOtpPage from "@/app/(guest)/auth/verify-otp/page";
 import GoogleLoginSuccessPage from "@/app/(guest)/auth/login-success/page";
 import DashboardPage from "@/app/dashboard/page";
-import TopicBrowserPage from "@/modules/learning/topics/page";
-import GrammarLearningPage from "@/modules/learning/grammar/page";
+import { UserProfilePage } from "@/modules/user/UserProfilePage";
+// import TopicBrowserPage from "@/modules/learning/topics/page";
+// import GrammarLearningPage from "@/modules/learning/grammar/page";
 import RequireAuth from "@/modules/auth/RequireAuth";
 import AppLayout from "./AppLayout";
 import AuthLayout from "./AuthLayout";
@@ -42,10 +43,18 @@ const AppRoutes = () => {
             }
           />
           <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <UserProfilePage />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/topics"
             element={
               <RequireAuth>
-                <TopicBrowserPage />
+                {/* <TopicBrowserPage /> */}
               </RequireAuth>
             }
           />
@@ -53,7 +62,7 @@ const AppRoutes = () => {
             path="/grammar/:topicId"
             element={
               <RequireAuth>
-                <GrammarLearningPage />
+                {/* <GrammarLearningPage /> */}
               </RequireAuth>
             }
           />
