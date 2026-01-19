@@ -19,8 +19,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { href: "/", label: "Home", ariaLabel: "Home page" },
-  { href: "/courses", label: "Courses", ariaLabel: "Browse available courses" },
-  { href: "/profile", label: "Profile", ariaLabel: "User profile" },
+  { href: "/topics", label: "Courses", ariaLabel: "Browse available courses" },
   { href: "/about", label: "About", ariaLabel: "About our platform" },
   { href: "/contact", label: "Contact", ariaLabel: "Contact us" },
 ];
@@ -112,7 +111,6 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
                 </a>
               ))}
             </div>
-
         </>
     )
 }
