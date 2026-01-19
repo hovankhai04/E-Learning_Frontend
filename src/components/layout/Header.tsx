@@ -41,6 +41,7 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
             <div className="announcement bg-mint-50 rounded-md w-full py-2 px-4 mb-2 text-center">
                 <p className="text-sm text-white bg-mint-50">Welcome to the English Learning App!</p>
             </div>
+
             <div className="main-header sticky flex flex-row justify-between w-full py-1 md:px-4  ">
                 <div className="nav-bar flex flex-row items-center">
                     <a href="/" className="logo w-10">
@@ -53,7 +54,7 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
                             href={link.href}
                             className={`mx-4 ${
                               isLinkActive(link.href)
-                                ? "text-mint-600 font-semibold"
+                                ? "text-mint-50 font-semibold"
                                 : "text-gray-700 hover:text-gray-900"
                             }`}
                             aria-label={link.ariaLabel}
