@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
+import { useAuth } from '@/services/auth/useAuth';
 
 type ProfileFormData = {
   username: string;
@@ -28,6 +29,8 @@ const getInitials = (username: string) => {
 };
 
 export const UserInfoCard = () => {
+  const { user, updateAvatar, updateProfile } = useAuth();
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const avatarInputRef = useRef<HTMLInputElement | null>(null);
@@ -39,47 +42,56 @@ export const UserInfoCard = () => {
   const [draft, setDraft] = useState<ProfileFormData>(INITIAL_PROFILE);
   const [errors, setErrors] = useState<Partial<Record<keyof ProfileFormData, string>>>({});
 
-  // const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setAvatarPreview(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  //   e.target.value = '';
-  // };
+  useEffect(() => {
+    if (!user) return;
+    const id = window.requestAnimationFrame(() => {
+      setProfile((prev) => ({
+        ...prev,
+        username: user.username ?? prev.username,
+        email: user.email ?? prev.email,
+        phoneNumber: user.phoneNumber ?? prev.phoneNumber,
+        location: user.location ?? prev.location,
+      }));
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [user]);
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+  const MAX_FILE_SIZE = 5 * 1024 * 1024;
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0];
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  if (!file) return;
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      alert("Please upload a valid image file (JPEG, PNG, or WEBP).");
+      e.target.value = "";
+      return;
+    }
 
-  if (!ALLOWED_TYPES.includes(file.type)) {
-    alert("Please upload a valid image file (JPEG, PNG, or WEBP).");
-    e.target.value = "";
-    return;
-  }
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File size must be less than 5MB.");
+      e.target.value = "";
+      return;
+    }
 
-  if (file.size > MAX_FILE_SIZE) {
-    alert("File size must be less than 5MB.");
-    e.target.value = "";
-    return;
-  }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatarPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
 
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    setAvatarPreview(reader.result as string);
+    try {
+      await updateAvatar(file);
+      console.log("Avatar updated successfully");
+    } catch (error) {
+      console.error("Failed to upload avatar", error);
+      alert("Không thể tải lên ảnh đại diện. Vui lòng thử lại.");
+      setAvatarPreview(null);
+    } finally {
+      e.target.value = "";
+    }
   };
-
-  reader.readAsDataURL(file);
-
-  e.target.value = "";
-};
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -119,18 +131,31 @@ const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEditModalOpen(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const nextErrors = validateDraft(draft);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    setProfile({
-      ...draft,
-      username: draft.username.trim(),
-      email: draft.email.trim(),
-      phoneNumber: draft.phoneNumber.trim(),
-    });
-    setIsEditModalOpen(false);
+    const username = draft.username.trim();
+    const phoneNumber = draft.phoneNumber.trim();
+
+    try {
+      await updateProfile({
+        username,
+        phone_number: phoneNumber,
+      });
+
+      setProfile({
+        ...draft,
+        username,
+        email: draft.email.trim(),
+        phoneNumber,
+      });
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Failed to update profile", error);
+      alert("Không thể cập nhật thông tin tài khoản. Vui lòng thử lại.");
+    }
   };
 
   const handleCancel = () => {
@@ -214,6 +239,12 @@ const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
               {avatarPreview ? (
                 <img
                   src={avatarPreview}
+                  alt="Avatar"
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-mint-50"
+                />
+              ) : user?.avatarUrl ? (
+                <img
+                  src={user.avatarUrl}
                   alt="Avatar"
                   className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-mint-50"
                 />
@@ -316,7 +347,7 @@ const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
                   onChange={handleInputChange}
                   aria-invalid={Boolean(errors.username)}
                   aria-describedby={errors.username ? 'username-error' : undefined}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
+                  className={`w-full text-gray-15 px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
                     errors.username ? 'border-red-500' : 'border-white-90'
                   }`}
                 />
@@ -337,7 +368,7 @@ const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
                   onChange={handleInputChange}
                   aria-invalid={Boolean(errors.email)}
                   aria-describedby={errors.email ? 'email-error' : undefined}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
+                  className={`w-full text-gray-15 px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
                     errors.email ? 'border-red-500' : 'border-white-90'
                   }`}
                 />
@@ -358,7 +389,7 @@ const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
                   onChange={handleInputChange}
                   aria-invalid={Boolean(errors.phoneNumber)}
                   aria-describedby={errors.phoneNumber ? 'phone-error' : undefined}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
+                  className={`w-full text-gray-15 px-4 py-2 border rounded-lg focus:outline-none focus:border-mint-50 focus:ring-1 focus:ring-mint-50 transition-colors ${
                     errors.phoneNumber ? 'border-red-500' : 'border-white-90'
                   }`}
                 />

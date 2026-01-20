@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import Logo from '../../../public/assets/Logo.svg';
 import { RxAvatar, RxExit } from "react-icons/rx";
 import { RiFileUserLine } from "react-icons/ri";
 
 type AvatarMenuDropdownProps = {
-  avatarUrl?: string;
+  displayName?: string;
+  avatarUrl?: string | null;
   onEditProfile?: () => void;
   onLogout?: () => void;
 };
 
 export function AvatarMenuDropdown({
-  avatarUrl = `${Logo}`,
+  displayName = "User",
+  avatarUrl = null,
   onEditProfile,
   onLogout,
 }: AvatarMenuDropdownProps) {
@@ -76,16 +77,22 @@ export function AvatarMenuDropdown({
       >
         {avatarUrl ? (
           <>
-          <img
-            src={avatarUrl}
-            alt="User avatar"
-            className="h-full w-full rounded-full object-cover"
-            />
-          {/*User Name*/}  
-          <span className="ml-2 text-gray-700 font-medium">Nguyen</span>
-        </>
+            <div className="block border border-mint-50 rounded-full max-w-9 max-h-9">
+              <img
+              src={avatarUrl}
+              alt="User avatar"
+              className="h-full w-full rounded-full object-cover"
+              />
+            </div>
+            <span className="ml-2 text-gray-15 font-medium">{displayName}</span>
+          </>
         ) : (
-          <span className="text-sm font-semibold"><RxAvatar className="w-10 h-10 text-gray-700" /></span>
+          <>
+            <span className="text-sm font-semibold">
+              <RxAvatar className="w-9 h-9 text-gray-15 border border-mint-50" />
+            </span>
+            <span className="ml-2 text-gray-15 font-medium">{displayName}</span>
+          </>
         )}
 
         
