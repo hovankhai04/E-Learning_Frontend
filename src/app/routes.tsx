@@ -13,6 +13,7 @@ import { UserProfilePage } from "@/modules/user/UserProfilePage";
 import RequireAuth from "@/modules/auth/RequireAuth";
 import AppLayout from "./AppLayout";
 import AuthLayout from "./AuthLayout";
+import SpeakingLearningPage from "@/modules/learning/speaking/page";
 
 const HomeRedirect = () => {
   const { isAuthenticated } = useAuth();
@@ -63,6 +64,14 @@ const AppRoutes = () => {
             element={
               <RequireAuth>
                 {/* <GrammarLearningPage /> */}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/speaking"
+            element={
+              <RequireAuth>
+                <SpeakingLearningPage />
               </RequireAuth>
             }
           />
