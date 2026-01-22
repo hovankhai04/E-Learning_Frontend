@@ -7,6 +7,7 @@ import ResetPasswordPage from "@/app/(guest)/auth/reset-password/page";
 import VerifyOtpPage from "@/app/(guest)/auth/verify-otp/page";
 import GoogleLoginSuccessPage from "@/app/(guest)/auth/login-success/page";
 import DashboardPage from "@/app/dashboard/page";
+import { UserProfilePage } from "@/modules/user/UserProfilePage";
 // import TopicBrowserPage from "@/modules/learning/topics/page";
 // import GrammarLearningPage from "@/modules/learning/grammar/page";
 import RequireAuth from "@/modules/auth/RequireAuth";
@@ -14,6 +15,7 @@ import AppLayout from "./AppLayout";
 import AuthLayout from "./AuthLayout";
 import TopicListPage from "@/modules/learning/vocab/pages/TopicListPage";
 import StudyPage from "@/modules/learning/vocab/pages/StudyPage";
+import SpeakingLearningPage from "@/modules/learning/speaking/page";
 
 const HomeRedirect = () => {
   const { isAuthenticated } = useAuth();
@@ -44,10 +46,34 @@ const AppRoutes = () => {
             }
           />
           <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <UserProfilePage />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/topics"
             element={
               <RequireAuth>
                 {/* <TopicBrowserPage /> */}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/grammar/:topicId"
+            element={
+              <RequireAuth>
+                {/* <GrammarLearningPage /> */}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/speaking"
+            element={
+              <RequireAuth>
+                <SpeakingLearningPage />
               </RequireAuth>
             }
           />
@@ -64,14 +90,6 @@ const AppRoutes = () => {
             element={
               <RequireAuth>
                 <StudyPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/grammar/:topicId"
-            element={
-              <RequireAuth>
-                {/* <GrammarLearningPage /> */}
               </RequireAuth>
             }
           />

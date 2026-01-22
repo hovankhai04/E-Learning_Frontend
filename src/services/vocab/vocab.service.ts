@@ -39,6 +39,7 @@ export const vocabService = {
   async getTopics(): Promise<TopicProgress[]> {
     const client = authService.getHttpClient();
     const res = await client.get<ApiMessageResponse>("/vocabs/topics");
+    console.log(res.data);
     return unwrap<TopicProgress[]>(res.data) ?? [];
   },
   async getNewWords(params: { topic: string; level?: string; limit?: number }): Promise<VocabEntry[]> {
