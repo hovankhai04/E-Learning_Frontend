@@ -8,8 +8,11 @@ import VerifyOtpPage from "@/app/(guest)/auth/verify-otp/page";
 import GoogleLoginSuccessPage from "@/app/(guest)/auth/login-success/page";
 import HomePage from "@/app/home/page";
 import { UserProfilePage } from "@/modules/user/UserProfilePage";
-// import TopicBrowserPage from "@/modules/learning/topics/page";
-// import GrammarLearningPage from "@/modules/learning/grammar/page";
+import TopicsPage from "@/modules/learning/topics/TopicsPage";
+import LessonPage from "@/modules/learning/grammar/lessons/[id]/page";
+import { GrammarDashboardPage } from "@/modules/learning/grammar/GrammarDashboardPage";
+import { GrammarLessonsPage } from "@/modules/learning/grammar/GrammarLessonsPage";
+import { ReviewLessonPage } from "@/modules/learning/grammar/ReviewLessonPage";
 import RequireAuth from "@/modules/auth/RequireAuth";
 import AppLayout from "./AppLayout";
 import AuthLayout from "./AuthLayout";
@@ -50,15 +53,39 @@ const AppRoutes = () => {
             path="/topics"
             element={
               <RequireAuth>
-                {/* <TopicBrowserPage /> */}
+                <TopicsPage />
               </RequireAuth>
             }
           />
           <Route
-            path="/grammar/:topicId"
+            path="/grammar/lessons"
             element={
               <RequireAuth>
-                {/* <GrammarLearningPage /> */}
+                <GrammarLessonsPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/grammar/dashboard"
+            element={
+              <RequireAuth>
+                <GrammarDashboardPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/grammar/lessons/:id"
+            element={
+              <RequireAuth>
+                <LessonPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/grammar/lessons/:lessonId/review"
+            element={
+              <RequireAuth>
+                <ReviewLessonPage />
               </RequireAuth>
             }
           />
